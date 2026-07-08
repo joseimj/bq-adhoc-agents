@@ -1,5 +1,7 @@
 # bq-adhoc-agents
 
+🌐 **Español** · [English](README.en.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Português](README.pt.md)
+
 Sistema multi-agente complementario a [bi-selfservice-agents](https://github.com/joseimj/bi-selfservice-agents) para autoservicio analítico sobre la **larga cola de datos de BigQuery que no está onboardeada en Looker**. A partir de una petición en lenguaje natural, los agentes descubren los activos relevantes en **Dataplex Universal Catalog** (el catálogo de conocimiento de GCP, que harvestea BigQuery automáticamente), generan SQL validado contra el esquema real, lo ejecutan **con la identidad del usuario final** — de modo que BigQuery aplica su propio control de acceso — y responden preguntas de negocio con tablas y gráficas inline. Construido sobre ADK, comunicación interna por A2A, dos superficies (Gemini Enterprise y frontend A2UI), despliegue con Terraform.
 
 ## 1. Contexto: por qué dos sistemas y no uno
@@ -180,3 +182,7 @@ Variables: `GIT_PROVIDER`, `GIT_REPO`, `GIT_BASE_BRANCH`, `GIT_TOKEN` (Secret Ma
 - **Onboarding Agent**: cuando una pregunta ad-hoc se repite, proponer el onboarding del activo a LookML como pull request — mismo patrón proponer/aprobar/aplicar de §9, reutilizando `git_provider.py`; el `LookML Author Agent` previsto en el repo hermano es el receptor natural.
 - **`ask_data_insights`**: delegar el NL2SQL a la Conversational Analytics API (mismo toolset de ADK, mismas credenciales de usuario) cuando esté habilitada en la organización.
 - **Semantic caching** de QuerySpecs frecuentes y **evaluación continua** con batería de preguntas de referencia contra staging.
+
+## Autor
+
+**Jose Maldonado** ([@joseimj](https://github.com/joseimj)) — autor también de [bi-selfservice-agents](https://github.com/joseimj/bi-selfservice-agents), el sistema hermano al que este repo complementa.
