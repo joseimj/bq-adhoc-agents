@@ -1,0 +1,16 @@
+project_id   = "mi-proyecto"
+region       = "us-central1"
+git_provider = "github"
+git_repo     = "mi-org/dq-rules-repo"
+github_repo  = "mi-org/dq-rules-repo"
+
+# Alternativas (según dónde vivan tus stewards):
+# git_provider        = "gitlab"
+# gitlab_project_path = "mi-grupo/dq-rules-repo"
+# git_provider         = "bitbucket"
+# bitbucket_issuer_uri = "https://api.bitbucket.org/2.0/workspaces/mi-ws/pipelines-config/identity/oidc"
+# bitbucket_audience   = "ari:cloud:bitbucket::workspace/xxxx"
+# bitbucket_repo_uuid  = "{uuid-del-repo}"
+# bitbucket_deployment_env_uuid = "{uuid-del-environment-production}"
+
+protected_branch = "main"

@@ -1,0 +1,5 @@
+# Asignación automática de stewards por dominio (GitHub/GitLab).
+# En Bitbucket Cloud: configurar "default reviewers" equivalentes por repo.
+rules/mi-proyecto/analytics/**   @mi-org/stewards-ventas
+rules/mi-proyecto/finanzas/**    @mi-org/stewards-finanzas
+rules/**                         @mi-org/data-governance

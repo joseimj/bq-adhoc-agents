@@ -1,0 +1,28 @@
+image: python:3.12-slim
+pipelines:
+  pull-requests:
+    "**":
+      - step:
+          name: validate + reporte de gobierno
+          oidc: true   # OIDC -> WIF con DQ_READER_SA
+          script:
+            - pip install -r requirements.txt
+            - CHANGED=$(git diff --name-only origin/main...HEAD -- 'rules/' | tr '\n' ' ')
+            - python apply.py validate $CHANGED
+            - python governance_report.py $CHANGED || true
+            - python post_comment.py    # usa BB_TOKEN, BITBUCKET_PR_ID y CHAT_WEBHOOK_URL
+            - python governance_report.py $CHANGED
+  branches:
+    main:
+      - step:
+          name: apply
+          oidc: true
+          # El deployment environment "production" DEBE tener restricción de
+          # rama a main en Bitbucket: es lo que hace que el token OIDC incluya
+          # deploymentEnvironmentUuid, único claim sobre el que IAM permite
+          # asumir la SA de gobierno.
+          deployment: production
+          script:
+            - pip install -r requirements.txt
+            - CHANGED=$(git diff --name-only HEAD^ HEAD -- 'rules/' | tr '\n' ' ')
+            - python apply.py apply $CHANGED

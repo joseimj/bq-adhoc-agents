@@ -1,0 +1,32 @@
+apiVersion: dq.rules/v1
+table: mi-proyecto.analytics.orders_raw
+location: us-central1
+schedule_cron: "0 6 * * *"
+rules:
+  - type: non_null
+    column: order_id
+    dimension: COMPLETENESS
+    threshold: 1.0
+    description: Toda orden debe tener id
+  - type: uniqueness
+    column: order_id
+    dimension: UNIQUENESS
+    threshold: 1.0
+    description: order_id no debe duplicarse
+  - type: set
+    column: region
+    dimension: VALIDITY
+    threshold: 0.99
+    values: [norte, sur, centro, occidente]
+    description: Regiones dentro del catalogo oficial
+  - type: range
+    column: order_total
+    dimension: VALIDITY
+    threshold: 0.95
+    min: "0"
+    max: "500000"
+    description: Ticket dentro de rango plausible
+metadata:
+  proposed_by: analista@empresa.com
+  proposed_via: bq-adhoc-agents
+  justification: Tabla usada en reportes ad-hoc de ventas por region
